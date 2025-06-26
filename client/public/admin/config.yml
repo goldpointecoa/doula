@@ -5,6 +5,12 @@ backend:
 
 # Site URL for Netlify deployment
 site_url: https://knitandknown-doula.netlify.app
+
+# Disable signup and require admin role
+publish_mode: editorial_workflow
+slug:
+  encoding: "ascii"
+  clean_accents: true
 # local_backend: true
 
 media_folder: "client/public/images/blog"
