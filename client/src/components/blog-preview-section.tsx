@@ -10,7 +10,7 @@ export default function BlogPreviewSection() {
   const { data: allPosts = [] } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('/data/blog-posts.json');
+      const response = await fetch('/api/blog');
       if (!response.ok) return [];
       return response.json();
     }

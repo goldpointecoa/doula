@@ -23,7 +23,7 @@ export default function BlogPost() {
     queryKey: ['blog-post', params?.slug],
     queryFn: async () => {
       if (!params?.slug) return null;
-      const response = await fetch(`/data/blog-${params.slug}.json`);
+      const response = await fetch(`/api/blog/${params.slug}`);
       if (!response.ok) {
         throw new Error('Failed to fetch blog post');
       }

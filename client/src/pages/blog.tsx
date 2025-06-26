@@ -20,7 +20,7 @@ export default function Blog() {
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('/data/blog-posts.json');
+      const response = await fetch('/api/blog');
       if (!response.ok) {
         throw new Error('Failed to fetch blog posts');
       }

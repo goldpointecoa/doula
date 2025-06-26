@@ -124,6 +124,8 @@ Changelog:
 - June 26, 2025. Updated blog pages to use real API data instead of sample data
 - June 26, 2025. Configured CMS to use git-gateway for proper Netlify Identity integration
 - June 26, 2025. Added Netlify Identity scripts and redirect handling for authentication
+- June 26, 2025. Migrated from Replit Agent to standard Replit environment
+- June 26, 2025. Fixed blog data fetching to use API endpoints instead of static JSON files
 
 ## User Preferences
 
