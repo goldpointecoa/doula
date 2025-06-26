@@ -78,11 +78,11 @@ The development server will automatically reload when you make changes to the co
 
 The website includes an integrated blog powered by Decap CMS. Blog posts are stored as markdown files with frontmatter metadata.
 
-### Local Development Blog
+### Blog Administration
 
-- Access the admin interface at `/admin`
-- Currently configured with test backend for local editing
-- Changes are simulated locally for development
+- Access the admin interface at `/admin` (requires Netlify deployment and authentication)
+- Content management through Decap CMS with Git Gateway integration
+- Real-time preview and publishing workflow
 
 ### Content Structure
 
@@ -127,12 +127,9 @@ For full blog functionality with Decap CMS:
 2. **Deploy Site**: The build settings are automatically configured via `netlify.toml`
 3. **Enable Identity**: Go to Site settings > Identity > Enable Identity
 4. **Enable Git Gateway**: Go to Site settings > Identity > Services > Enable Git Gateway
-5. **Update CMS Config**: In `client/public/admin/config.yml`:
+5. **Update Site URL**: In `client/public/admin/config.yml`, update the site_url:
    ```yaml
-   # Comment out test-repo and uncomment:
-   backend:
-     name: git-gateway
-     branch: main
+   site_url: https://your-actual-site-name.netlify.app
    ```
 6. **Add Admin Users**: Go to Site settings > Identity > Users and invite admin users
 7. **Access CMS**: Visit `yoursite.netlify.app/admin` to manage blog posts

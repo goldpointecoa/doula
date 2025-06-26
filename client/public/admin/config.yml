@@ -1,13 +1,10 @@
-# Backend configuration
-# For local development, uses test-repo for immediate editing
-# For production deployment with Netlify, use git-gateway
+# Backend configuration for Netlify deployment
 backend:
-  name: test-repo
+  name: git-gateway
+  branch: main
 
-# Production backend (uncomment when deploying to Netlify):
-# backend:
-#   name: git-gateway
-#   branch: main
+# Site URL (update this with your actual Netlify site URL)
+site_url: https://your-site-name.netlify.app
 # local_backend: true
 
 media_folder: "client/public/images/blog"
