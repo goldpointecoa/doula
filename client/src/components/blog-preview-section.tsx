@@ -3,18 +3,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, ArrowRight, Heart } from "lucide-react";
 import { Link } from "wouter";
+import { useQuery } from '@tanstack/react-query';
 import OrganicDivider from "./organic-divider";
 
-const recentPosts = [
-  {
-    slug: "2025-01-01-welcome-to-my-blog",
-    title: "Welcome to My Blog",
-    date: "2025-01-01",
-    excerpt: "Welcome to my doula blog where I share insights about birth, pregnancy, and supporting families through their journey."
-  }
-];
-
 export default function BlogPreviewSection() {
+  const { data: allPosts = [] } = useQuery({
+    queryKey: ['/api/blog'],
+    queryFn: async () => {
+      const response = await fetch('/api/blog');
+      if (!response.ok) return [];
+      return response.json();
+    }
+  });
+
+  const recentPosts = allPosts.slice(0, 3);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'long',
@@ -42,7 +45,7 @@ export default function BlogPreviewSection() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
-          {recentPosts.map((post) => (
+          {recentPosts.map((post: any) => (
             <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-all duration-300 group">
               <CardHeader>
                 <div className="flex items-center gap-2 text-sm text-sage-500 mb-2">

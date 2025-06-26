@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { useRoute } from 'wouter';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
 import { Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
 
 interface BlogPost {
   slug: string;
@@ -18,47 +18,19 @@ interface BlogPost {
 
 export default function BlogPost() {
   const [match, params] = useRoute('/blog/:slug');
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (params?.slug) {
-      // For now, we'll create sample data
-      // In production, this would fetch the specific markdown file
-      const samplePost: BlogPost = {
-        slug: params.slug,
-        title: 'Welcome to My Blog',
-        date: '2025-01-01',
-        excerpt: 'Welcome to my doula blog where I share insights about birth, pregnancy, and supporting families through their journey.',
-        tags: ['welcome', 'introduction', 'doula care'],
-        author: 'Sarah',
-        content: `# Welcome to My Blog
-
-I'm so excited to share this space with you! This blog will be a place where I can share insights, tips, and stories from my journey as a doula.
-
-## What You Can Expect
-
-Here you'll find:
-- Birth stories and experiences
-- Pregnancy and postpartum tips
-- Information about doula services
-- Resources for expecting families
-- Personal reflections on supporting families
-
-## My Mission
-
-As a doula, my mission is to provide compassionate, non-judgmental support to families during one of the most transformative times in their lives. Through this blog, I hope to extend that support to a wider community.
-
-Thank you for joining me on this journey. I look forward to sharing more with you soon!
-
-With love and light,
-Sarah`
-      };
-      
-      setPost(samplePost);
-      setLoading(false);
-    }
-  }, [params?.slug]);
+  
+  const { data: post, isLoading, error } = useQuery({
+    queryKey: ['/api/blog', params?.slug],
+    queryFn: async () => {
+      if (!params?.slug) return null;
+      const response = await fetch(`/api/blog/${params.slug}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog post');
+      }
+      return response.json();
+    },
+    enabled: !!params?.slug
+  });
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -89,7 +61,7 @@ Sarah`
       });
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-sage-50 to-cream-50 pt-20">
         <div className="container mx-auto px-6 py-12 max-w-4xl">
@@ -159,7 +131,7 @@ Sarah`
             </div>
 
             <div className="flex flex-wrap gap-2 mb-6">
-              {post.tags.map((tag) => (
+              {post.tags.map((tag: string) => (
                 <Badge key={tag} variant="secondary" className="bg-sage-100 text-sage-700">
                   {tag}
                 </Badge>

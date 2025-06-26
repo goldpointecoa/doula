@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
 
 interface BlogPost {
   slug: string;
@@ -17,27 +17,16 @@ interface BlogPost {
 }
 
 export default function Blog() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // For now, we'll create sample data
-    // In production, this would fetch from your markdown files
-    const samplePosts: BlogPost[] = [
-      {
-        slug: '2025-01-01-welcome-to-my-blog',
-        title: 'Welcome to My Blog',
-        date: '2025-01-01',
-        excerpt: 'Welcome to my doula blog where I share insights about birth, pregnancy, and supporting families through their journey.',
-        tags: ['welcome', 'introduction', 'doula care'],
-        author: 'Sarah',
-        content: 'Full content would be loaded here...'
+  const { data: posts = [], isLoading } = useQuery({
+    queryKey: ['/api/blog'],
+    queryFn: async () => {
+      const response = await fetch('/api/blog');
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog posts');
       }
-    ];
-    
-    setPosts(samplePosts);
-    setLoading(false);
-  }, []);
+      return response.json();
+    }
+  });
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -47,7 +36,7 @@ export default function Blog() {
     });
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-sage-50 to-cream-50 pt-20">
         <div className="container mx-auto px-6 py-12">
@@ -86,7 +75,7 @@ export default function Blog() {
 
         {/* Blog Posts Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {posts.map((post: BlogPost) => (
             <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-shadow duration-300">
               {post.image && (
                 <div className="h-48 bg-sage-100 rounded-t-lg"></div>
@@ -110,7 +99,7 @@ export default function Blog() {
                   {post.excerpt}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {post.tags.map((tag) => (
+                  {post.tags.map((tag: string) => (
                     <Badge key={tag} variant="secondary" className="bg-sage-100 text-sage-700 hover:bg-sage-200">
                       {tag}
                     </Badge>

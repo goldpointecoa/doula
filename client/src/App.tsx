@@ -7,6 +7,7 @@ import Home from "@/pages/home";
 import Blog from "@/pages/blog";
 import BlogPost from "@/pages/blog-post";
 import Admin from "@/pages/admin";
+import BlogAdmin from "@/components/blog-admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/admin*" component={Admin} />
+      <Route path="/blog-admin" component={BlogAdmin} />
       <Route component={NotFound} />
     </Switch>
   );
