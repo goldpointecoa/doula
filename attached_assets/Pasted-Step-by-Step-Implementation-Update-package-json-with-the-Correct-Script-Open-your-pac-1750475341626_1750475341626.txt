@@ -1,0 +1,67 @@
+Step-by-Step Implementation:
+
+    Update package.json with the Correct Script:
+        Open your package.json file in Replit.
+        Ensure the "scripts" section includes a dev script. Replace or add the following:
+        json
+
+    "scripts": {
+      "dev": "cross-env NODE_ENV=development tsx server/index.ts"
+    }
+    This script uses cross-env to set the NODE_ENV to development and tsx to run the TypeScript file server/index.ts.
+
+Install Missing Dependencies:
+
+    In the Replit terminal, run the following commands to install required packages:
+    text
+
+    npm install --save-dev tsx cross-env
+    npm install express
+    This ensures tsx (for running TypeScript), cross-env (for environment variables), and express (for the web server) are available.
+
+Verify Project Structure:
+
+    Confirm that a file named server/index.ts exists in your Replit project. If it doesn’t, create it with a basic Express setup, e.g.:
+    typescript
+
+    import express from 'express';
+    const app = express();
+    const port = 3000;
+
+    app.get('/', (req, res) => {
+      res.send('Welcome to Essie’s Doula Website');
+    });
+
+    app.listen(port, () => {
+      console.log(`Server running at http://localhost:${port}`);
+    });
+    Adjust the file path in the dev script if your entry file is named differently (e.g., app.ts).
+
+Address Vulnerabilities (Optional but Recommended):
+
+    Run the following to fix moderate severity vulnerabilities reported by npm audit:
+    text
+
+npm audit fix --force
+Then re-run npm install to ensure a clean dependency tree:
+text
+
+    npm install
+
+Run the Development Server:
+
+    In the Replit terminal, execute:
+    text
+
+        npm run dev
+        This should start the server. If successful, you’ll see a message like Server running at http://localhost:3000. Access it via the Replit preview URL.
+
+Notes for Replit Environment
+
+    Replit automatically handles port assignment, so if 3000 is unavailable, the script will adapt. The preview URL will reflect the correct port.
+    If the server doesn’t start, check the Replit console for errors and ensure all files are saved.
+    The fix assumes a basic Express setup. If your index.ts includes additional middleware or routes (e.g., for the doula website sections), ensure they are correctly implemented.
+
+Expected Outcome
+
+After implementing this fix, running npm run dev should launch a development server for your doula website, allowing you to test the application. If issues persist, please share the updated package.json or any new error messages, and I can refine the solution further. Would you like me to search for additional Replit-specific troubleshooting tips?
