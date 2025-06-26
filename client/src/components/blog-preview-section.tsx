@@ -10,9 +10,26 @@ export default function BlogPreviewSection() {
   const { data: allPosts = [] } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('/api/blog');
-      if (!response.ok) return [];
-      return response.json();
+      // Try API first (Replit), fallback to static files (Netlify)
+      try {
+        const response = await fetch('/api/blog');
+        if (response.ok) {
+          return response.json();
+        }
+      } catch (error) {
+        // API not available, try static file
+      }
+      
+      try {
+        const response = await fetch('/data/blog-posts.json');
+        if (response.ok) {
+          return response.json();
+        }
+      } catch (error) {
+        // Static file not available either
+      }
+      
+      return [];
     }
   });
 
