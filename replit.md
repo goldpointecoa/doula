@@ -32,11 +32,13 @@ This is a modern doula website built with React, TypeScript, and Express.js. It 
 ## Key Components
 
 ### Frontend Components
-- **Navigation**: Fixed navigation with smooth scrolling
+- **Navigation**: Fixed navigation with smooth scrolling and blog link
 - **Hero Section**: Full-screen hero with nature-inspired background
 - **About Section**: Personal introduction with photo gallery
 - **Services Section**: Detailed service offerings with icons
 - **Factoids Section**: Statistics about doula care benefits
+- **Blog Preview Section**: Showcases recent blog posts with preview cards
+- **Blog Pages**: Full blog listing and individual post pages
 - **Testimonials Section**: Client testimonials in a carousel
 - **Contact Section**: Contact form with Netlify form integration
 - **Footer**: Links and social media connections
@@ -118,6 +120,7 @@ This is a modern doula website built with React, TypeScript, and Express.js. It 
 
 Changelog:
 - June 26, 2025. Initial setup
+- June 26, 2025. Added Decap CMS blog integration with GitHub/Netlify compatibility
 
 ## User Preferences
 

@@ -1,0 +1,108 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Calendar, ArrowRight, Heart } from "lucide-react";
+import { Link } from "wouter";
+import OrganicDivider from "./organic-divider";
+
+const recentPosts = [
+  {
+    slug: "2025-01-01-welcome-to-my-blog",
+    title: "Welcome to My Blog",
+    date: "2025-01-01",
+    excerpt: "Welcome to my doula blog where I share insights about birth, pregnancy, and supporting families through their journey."
+  }
+];
+
+export default function BlogPreviewSection() {
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  return (
+    <section id="blog" className="relative py-20 bg-gradient-to-b from-sage-50 to-cream-50">
+      <OrganicDivider topColor="bg-cream-50" bottomColor="bg-sage-50" />
+      
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Heart className="w-6 h-6 text-sage-500" />
+            <span className="text-sage-600 font-medium">From the Heart</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-sage-800 mb-4">
+            Birth Stories & Insights
+          </h2>
+          <p className="text-lg text-sage-600 max-w-2xl mx-auto">
+            Sharing wisdom, experiences, and support for your pregnancy and birth journey
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
+          {recentPosts.map((post) => (
+            <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-all duration-300 group">
+              <CardHeader>
+                <div className="flex items-center gap-2 text-sm text-sage-500 mb-2">
+                  <Calendar className="w-4 h-4" />
+                  <span>{formatDate(post.date)}</span>
+                </div>
+                <CardTitle className="text-sage-800 group-hover:text-sage-600 transition-colors">
+                  <Link href={`/blog/${post.slug}`}>
+                    {post.title}
+                  </Link>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sage-600 mb-4 line-clamp-3">
+                  {post.excerpt}
+                </p>
+                <Link href={`/blog/${post.slug}`}>
+                  <Button variant="ghost" className="w-full text-sage-700 hover:bg-sage-50 group-hover:translate-x-1 transition-transform">
+                    Read More
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          ))}
+          
+          {/* Placeholder cards for future posts */}
+          {recentPosts.length < 3 && (
+            <>
+              <Card className="bg-white/30 backdrop-blur-sm border-sage-200 border-dashed">
+                <CardContent className="flex items-center justify-center h-48">
+                  <div className="text-center">
+                    <Heart className="w-8 h-8 text-sage-400 mx-auto mb-2" />
+                    <p className="text-sage-500 font-medium">More stories coming soon</p>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-white/30 backdrop-blur-sm border-sage-200 border-dashed">
+                <CardContent className="flex items-center justify-center h-48">
+                  <div className="text-center">
+                    <Heart className="w-8 h-8 text-sage-400 mx-auto mb-2" />
+                    <p className="text-sage-500 font-medium">More stories coming soon</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+        </div>
+
+        <div className="text-center">
+          <Link href="/blog">
+            <Button size="lg" className="bg-sage-600 hover:bg-sage-700 text-white px-8 py-3">
+              View All Posts
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+      
+      <OrganicDivider topColor="bg-sage-50" bottomColor="bg-cream-50" reverse={true} />
+    </section>
+  );
+}

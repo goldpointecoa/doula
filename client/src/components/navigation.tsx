@@ -2,21 +2,25 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { scrollToSection } from "@/lib/scroll-utils";
+import { Link, useLocation } from "wouter";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [location] = useLocation();
 
   const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    // { label: "Pricing", href: "#pricing" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "Contact", href: "#contact" },
+    { label: "Home", href: "#home", isRoute: false },
+    { label: "About", href: "#about", isRoute: false },
+    { label: "Services", href: "#services", isRoute: false },
+    { label: "Blog", href: "/blog", isRoute: true },
+    { label: "Testimonials", href: "#testimonials", isRoute: false },
+    { label: "Contact", href: "#contact", isRoute: false },
   ];
 
-  const handleNavClick = (href: string) => {
-    scrollToSection(href);
+  const handleNavClick = (href: string, isRoute: boolean) => {
+    if (!isRoute) {
+      scrollToSection(href);
+    }
     setIsMobileMenuOpen(false);
   };
 
@@ -37,13 +41,19 @@ export default function Navigation() {
 
           <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleNavClick(item.href)}
-                className="nav-item text-ebony-700 hover:text-copper-400 font-medium transition-colors duration-200"
-              >
-                {item.label}
-              </button>
+              item.isRoute ? (
+                <Link key={item.label} href={item.href} className="nav-item text-ebony-700 hover:text-copper-400 font-medium transition-colors duration-200">
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={() => handleNavClick(item.href, item.isRoute)}
+                  className="nav-item text-ebony-700 hover:text-copper-400 font-medium transition-colors duration-200"
+                >
+                  {item.label}
+                </button>
+              )
             ))}
           </div>
 
@@ -66,13 +76,22 @@ export default function Navigation() {
           <div className="md:hidden pb-4">
             <div className="flex flex-col space-y-3">
               {navItems.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => handleNavClick(item.href)}
-                  className="text-left text-ebony-700 hover:text-copper-400 font-medium transition-colors duration-200"
-                >
-                  {item.label}
-                </button>
+                item.isRoute ? (
+                  <Link key={item.label} href={item.href} 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-left text-ebony-700 hover:text-copper-400 font-medium transition-colors duration-200"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavClick(item.href, item.isRoute)}
+                    className="text-left text-ebony-700 hover:text-copper-400 font-medium transition-colors duration-200"
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
             </div>
           </div>

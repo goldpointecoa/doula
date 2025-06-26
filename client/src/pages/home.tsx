@@ -4,6 +4,7 @@ import HeroSection from "@/components/hero-section";
 import AboutSection from "@/components/about-section";
 import FactoidsSection from "@/components/factoids-section";
 import ServicesSection from "@/components/services-section";
+import BlogPreviewSection from "@/components/blog-preview-section";
 // import PricingSection from "@/components/pricing-section";
 import TestimonialsSection from "@/components/testimonials-section";
 import ContactSection from "@/components/contact-section";
@@ -25,6 +26,8 @@ export default function Home() {
       <FactoidsSection />
       <div className="section-divider" />
       <ServicesSection />
+      <div className="section-divider" />
+      <BlogPreviewSection />
       <div className="section-divider" />
       {/* <PricingSection />
       <div className="section-divider" /> */}
