@@ -1,6 +1,6 @@
 [build]
   publish = "dist/public"
-  command = "node scripts/build-blog-data.js && npm run build"
+  command = "npm run build && node scripts/build-blog-data.js"
 
 [[redirects]]
   from = "/*"

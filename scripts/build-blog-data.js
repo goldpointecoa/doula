@@ -7,17 +7,23 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog');
+// Output to both client/public/data (for dev) and dist/public/data (for Netlify build)
 const OUTPUT_DIR = path.join(process.cwd(), 'client/public/data');
+const NETLIFY_OUTPUT_DIR = path.join(process.cwd(), 'dist/public/data');
 
 function buildBlogData() {
-  // Ensure output directory exists
+  // Ensure output directories exist
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(NETLIFY_OUTPUT_DIR)) {
+    fs.mkdirSync(NETLIFY_OUTPUT_DIR, { recursive: true });
   }
 
   if (!fs.existsSync(BLOG_DIR)) {
     console.log('No blog directory found, creating empty blog data...');
     fs.writeFileSync(path.join(OUTPUT_DIR, 'blog-posts.json'), JSON.stringify([]));
+    fs.writeFileSync(path.join(NETLIFY_OUTPUT_DIR, 'blog-posts.json'), JSON.stringify([]));
     return;
   }
 
@@ -45,16 +51,24 @@ function buildBlogData() {
     .filter(post => post.published)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  // Write all posts data
+  // Write all posts data to both locations
   fs.writeFileSync(
     path.join(OUTPUT_DIR, 'blog-posts.json'), 
     JSON.stringify(posts, null, 2)
   );
+  fs.writeFileSync(
+    path.join(NETLIFY_OUTPUT_DIR, 'blog-posts.json'), 
+    JSON.stringify(posts, null, 2)
+  );
 
-  // Write individual post files
+  // Write individual post files to both locations
   posts.forEach(post => {
     fs.writeFileSync(
       path.join(OUTPUT_DIR, `blog-${post.slug}.json`),
+      JSON.stringify(post, null, 2)
+    );
+    fs.writeFileSync(
+      path.join(NETLIFY_OUTPUT_DIR, `blog-${post.slug}.json`),
       JSON.stringify(post, null, 2)
     );
   });
