@@ -121,6 +121,9 @@ This is a modern doula website built with React, TypeScript, and Express.js. It 
 Changelog:
 - June 26, 2025. Initial setup
 - June 26, 2025. Added Decap CMS blog integration with GitHub/Netlify compatibility
+- June 26, 2025. Fixed CMS authentication for local development, configured test-repo backend
+- June 26, 2025. Updated blog pages to use real API data instead of sample data
+- June 26, 2025. Added comprehensive deployment documentation for Netlify CMS setup
 
 ## User Preferences
 

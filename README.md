@@ -11,11 +11,15 @@ A modern, responsive doula website built with React, TypeScript, and Express.js.
 - 🎨 Beautiful UI components with shadcn/ui
 - 📧 Contact form functionality
 - 🎯 SEO-friendly structure
+- 📝 Integrated blog with Decap CMS
+- 🔐 Admin interface for content management
 
 ## Tech Stack
 
 - **Frontend**: React 18, TypeScript, Tailwind CSS
 - **Backend**: Express.js, Node.js
+- **CMS**: Decap CMS (formerly Netlify CMS)
+- **Content**: Markdown files with frontmatter
 - **Build Tool**: Vite
 - **UI Components**: shadcn/ui, Radix UI
 - **Icons**: Lucide React
@@ -62,9 +66,43 @@ The development server will automatically reload when you make changes to the co
 │   │   ├── pages/          # Page components
 │   │   ├── lib/            # Utility functions
 │   │   └── hooks/          # Custom React hooks
+│   └── public/admin/       # Decap CMS admin interface
 ├── server/                 # Backend Express server
 ├── shared/                 # Shared TypeScript types
+├── content/                # Blog content and pages
+│   └── blog/               # Blog posts (markdown files)
 └── dist/                   # Built files (generated)
+```
+
+## Blog Management
+
+The website includes an integrated blog powered by Decap CMS. Blog posts are stored as markdown files with frontmatter metadata.
+
+### Local Development Blog
+
+- Access the admin interface at `/admin`
+- Currently configured with test backend for local editing
+- Changes are simulated locally for development
+
+### Content Structure
+
+Blog posts are stored in `content/blog/` as markdown files with this structure:
+
+```markdown
+---
+title: "Your Blog Post Title"
+date: 2025-01-01T10:00:00.000Z
+excerpt: "Brief description of the post"
+tags:
+  - tag1
+  - tag2
+author: "Author Name"
+published: true
+---
+
+# Your blog post content here
+
+Write your post content in markdown format.
 ```
 
 ## Deployment
@@ -81,11 +119,25 @@ This project is configured to work with:
 2. Click the "Run" button
 3. Use Replit's deployment features to publish
 
-### Deploy on Netlify
+### Deploy on Netlify (with CMS)
 
-1. Connect your GitHub repository to Netlify
-2. The build settings are automatically configured via `netlify.toml`
-3. Deploy with one click
+For full blog functionality with Decap CMS:
+
+1. **Connect Repository**: Link your GitHub repository to Netlify
+2. **Deploy Site**: The build settings are automatically configured via `netlify.toml`
+3. **Enable Identity**: Go to Site settings > Identity > Enable Identity
+4. **Enable Git Gateway**: Go to Site settings > Identity > Services > Enable Git Gateway
+5. **Update CMS Config**: In `client/public/admin/config.yml`:
+   ```yaml
+   # Comment out test-repo and uncomment:
+   backend:
+     name: git-gateway
+     branch: main
+   ```
+6. **Add Admin Users**: Go to Site settings > Identity > Users and invite admin users
+7. **Access CMS**: Visit `yoursite.netlify.app/admin` to manage blog posts
+
+Once configured, the CMS will allow you to create, edit, and publish blog posts directly through the admin interface, with changes automatically committing to your GitHub repository.
 
 ## Customization
 
