@@ -18,9 +18,9 @@ interface BlogPost {
 
 export default function Blog() {
   const { data: posts = [], isLoading } = useQuery({
-    queryKey: ['/api/blog'],
+    queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('/api/blog');
+      const response = await fetch('/data/blog-posts.json');
       if (!response.ok) {
         throw new Error('Failed to fetch blog posts');
       }

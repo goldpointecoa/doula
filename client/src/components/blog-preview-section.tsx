@@ -8,9 +8,9 @@ import OrganicDivider from "./organic-divider";
 
 export default function BlogPreviewSection() {
   const { data: allPosts = [] } = useQuery({
-    queryKey: ['/api/blog'],
+    queryKey: ['blog-posts'],
     queryFn: async () => {
-      const response = await fetch('/api/blog');
+      const response = await fetch('/data/blog-posts.json');
       if (!response.ok) return [];
       return response.json();
     }

@@ -20,10 +20,10 @@ export default function BlogPost() {
   const [match, params] = useRoute('/blog/:slug');
   
   const { data: post, isLoading, error } = useQuery({
-    queryKey: ['/api/blog', params?.slug],
+    queryKey: ['blog-post', params?.slug],
     queryFn: async () => {
       if (!params?.slug) return null;
-      const response = await fetch(`/api/blog/${params.slug}`);
+      const response = await fetch(`/data/blog-${params.slug}.json`);
       if (!response.ok) {
         throw new Error('Failed to fetch blog post');
       }
