@@ -126,15 +126,32 @@ For full blog functionality with Decap CMS:
 1. **Connect Repository**: Link your GitHub repository to Netlify
 2. **Deploy Site**: The build settings are automatically configured via `netlify.toml`
 3. **Enable Identity**: Go to Site settings > Identity > Enable Identity
-4. **Enable Git Gateway**: Go to Site settings > Identity > Services > Enable Git Gateway
-5. **Update Site URL**: In `client/public/admin/config.yml`, update the site_url:
-   ```yaml
-   site_url: https://your-actual-site-name.netlify.app
-   ```
-6. **Add Admin Users**: Go to Site settings > Identity > Users and invite admin users
-7. **Access CMS**: Visit `yoursite.netlify.app/admin` to manage blog posts
+4. **Secure Registration**: Go to Site settings > Identity > Registration preferences > Set to "Invite only"
+5. **Enable Git Gateway**: Go to Site settings > Identity > Services > Enable Git Gateway
+6. **Add Admin Users**: Go to Site settings > Identity > Users > Invite users (they'll receive email invites)
+7. **Access CMS**: Visit `yoursite.netlify.app/admin` to manage blog posts (only invited users can log in)
 
 Once configured, the CMS will allow you to create, edit, and publish blog posts directly through the admin interface, with changes automatically committing to your GitHub repository.
+
+### Security Configuration
+
+**Important**: By default, Netlify Identity allows open registration. To secure your CMS:
+
+1. **Set Registration to Invite Only**:
+   - Go to Site settings > Identity > Registration preferences
+   - Select "Invite only" instead of "Open"
+   - This prevents random users from creating accounts
+
+2. **Manage Admin Access**:
+   - Only invited users can access the CMS
+   - Invite users through Site settings > Identity > Users
+   - Remove access by deleting users from the Identity dashboard
+
+3. **Monitor Access**:
+   - Check Site settings > Identity > Users regularly
+   - Review who has access to your content management
+
+This ensures only you (and people you invite) can edit your blog content.
 
 ## Customization
 

@@ -3,8 +3,8 @@ backend:
   name: git-gateway
   branch: main
 
-# Site URL (update this with your actual Netlify site URL)
-site_url: https://your-site-name.netlify.app
+# Site URL for Netlify deployment
+site_url: https://knitandknown-doula.netlify.app
 # local_backend: true
 
 media_folder: "client/public/images/blog"
