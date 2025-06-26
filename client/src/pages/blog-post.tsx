@@ -23,27 +23,11 @@ export default function BlogPost() {
     queryKey: ['blog-post', params?.slug],
     queryFn: async () => {
       if (!params?.slug) return null;
-      
-      // Try API first (Replit), fallback to static files (Netlify)
-      try {
-        const response = await fetch(`/api/blog/${params.slug}`);
-        if (response.ok) {
-          return response.json();
-        }
-      } catch (error) {
-        // API not available, try static file
+      const response = await fetch(`/data/blog-${params.slug}.json`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog post');
       }
-      
-      try {
-        const response = await fetch(`/data/blog-${params.slug}.json`);
-        if (response.ok) {
-          return response.json();
-        }
-      } catch (error) {
-        // Static file not available either
-      }
-      
-      throw new Error('Failed to fetch blog post');
+      return response.json();
     },
     enabled: !!params?.slug
   });

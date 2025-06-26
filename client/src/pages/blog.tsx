@@ -20,26 +20,11 @@ export default function Blog() {
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
-      // Try API first (Replit), fallback to static files (Netlify)
-      try {
-        const response = await fetch('/api/blog');
-        if (response.ok) {
-          return response.json();
-        }
-      } catch (error) {
-        // API not available, try static file
+      const response = await fetch('/data/blog-posts.json');
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog posts');
       }
-      
-      try {
-        const response = await fetch('/data/blog-posts.json');
-        if (response.ok) {
-          return response.json();
-        }
-      } catch (error) {
-        // Static file not available either
-      }
-      
-      return [];
+      return response.json();
     }
   });
 
