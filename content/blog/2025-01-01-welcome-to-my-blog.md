@@ -1,12 +1,13 @@
 ---
-title: "Welcome to My Blog"
+title: Welcome to My Blog
 date: 2025-01-01T10:00:00.000Z
-excerpt: "Welcome to my doula blog where I share insights about birth, pregnancy, and supporting families through their journey."
+excerpt: Welcome to my doula blog where I share insights about birth, pregnancy,
+  and supporting families through their journey.
 tags:
   - welcome
   - introduction
   - doula care
-author: "Sarah"
+author: Esther
 published: true
 ---
 
