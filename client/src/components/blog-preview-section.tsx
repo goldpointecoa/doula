@@ -46,7 +46,16 @@ export default function BlogPreviewSection() {
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mb-12">
           {recentPosts.map((post: any) => (
-            <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-all duration-300 group">
+            <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-all duration-300 group overflow-hidden">
+              {post.image && (
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
               <CardHeader>
                 <div className="flex items-center gap-2 text-sm text-sage-500 mb-2">
                   <Calendar className="w-4 h-4" />

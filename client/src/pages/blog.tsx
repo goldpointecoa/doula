@@ -76,9 +76,15 @@ export default function Blog() {
         {/* Blog Posts Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post: BlogPost) => (
-            <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-shadow duration-300">
+            <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-shadow duration-300 overflow-hidden">
               {post.image && (
-                <div className="h-48 bg-sage-100 rounded-t-lg"></div>
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={post.image} 
+                    alt={post.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
               )}
               <CardHeader>
                 <div className="flex items-center gap-2 text-sm text-sage-500 mb-2">

@@ -139,7 +139,13 @@ export default function BlogPost() {
             </div>
 
             {post.image && (
-              <div className="h-64 md:h-96 bg-sage-100 rounded-lg mb-8"></div>
+              <div className="h-64 md:h-96 rounded-lg mb-8 overflow-hidden">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             )}
           </header>
 
