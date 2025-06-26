@@ -5,63 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <style>
-    /* Hide signup elements completely */
-    .netlify-identity-tabs button:last-child,
-    [data-tab="signup"],
-    .netlify-identity-signup {
-      display: none !important;
-    }
-    
-    /* Hide any signup-related text or buttons */
-    .netlify-identity-item:last-child {
-      display: none !important;
-    }
-  </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-    // Configure Netlify Identity with signup disabled
+    // Handle Netlify Identity redirect
     if (window.netlifyIdentity) {
-      // Initialize with signup disabled
-      window.netlifyIdentity.init({
-        container: '#netlify-modal',
-        logo: false,
-        signup: false
-      });
-      
       window.netlifyIdentity.on("init", user => {
         if (!user) {
           window.netlifyIdentity.on("login", () => {
             document.location.href = "/admin/";
           });
         }
-      });
-      
-      // Additional safety: Hide signup elements when modal opens
-      window.netlifyIdentity.on("open", () => {
-        setTimeout(() => {
-          // Hide signup tab
-          const signupTab = document.querySelector('.netlify-identity-tabs button:last-child');
-          if (signupTab) {
-            signupTab.style.display = 'none';
-          }
-          
-          // Hide signup form
-          const signupForm = document.querySelector('[data-tab="signup"]');
-          if (signupForm) {
-            signupForm.style.display = 'none';
-          }
-          
-          // Remove signup option entirely
-          const tabs = document.querySelectorAll('.netlify-identity-tabs button');
-          tabs.forEach(tab => {
-            if (tab.textContent.toLowerCase().includes('sign up')) {
-              tab.remove();
-            }
-          });
-        }, 100);
       });
     }
   </script>
