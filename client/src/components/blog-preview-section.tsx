@@ -37,10 +37,10 @@ export default function BlogPreviewSection() {
             <span className="text-sage-600 font-medium">From the Heart</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-sage-800 mb-4">
-            Birth Stories & Insights
+            Latest Blog Posts
           </h2>
           <p className="text-lg text-sage-600 max-w-2xl mx-auto">
-            Sharing wisdom, experiences, and support for your pregnancy and birth journey
+            Sharing experiences and insights for your pregnancy and birth
           </p>
         </div>
 
