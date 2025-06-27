@@ -13,6 +13,7 @@ interface BlogPost {
   excerpt: string;
   tags: string[];
   author: string;
+  authorRole?: string;
   content: string;
   image?: string;
 }
@@ -202,13 +203,13 @@ export default function BlogPost() {
                 </div>
                 <div>
                   <p className="font-semibold text-sage-800">{post.author}</p>
-                  <p className="text-sm text-sage-600">Certified Birth Doula</p>
+                  <p className="text-sm text-sage-600">{post.authorRole || 'Certified Birth Doula'}</p>
                 </div>
               </div>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-sage-300 text-sage-700 hover:bg-sage-50"
+                className="border-sage-300 text-sage-700 hover:bg-sage-50 hover:text-sage-700"
                 onClick={handleShare}
               >
                 <Share2 className="w-4 h-4 mr-2" />

@@ -12,6 +12,7 @@ interface BlogPost {
   excerpt: string;
   tags: string[];
   author: string;
+  authorRole?: string;
   content: string;
   image?: string;
 }

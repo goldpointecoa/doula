@@ -37,6 +37,7 @@ function buildBlogData() {
         excerpt: data.excerpt || '',
         tags: data.tags || [],
         author: data.author || 'Sarah',
+        authorRole: data.authorRole || 'Certified Birth Doula',
         published: data.published !== false,
         content,
         image: data.image || undefined
