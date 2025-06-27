@@ -6,6 +6,8 @@ import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface BlogPost {
   slug: string;
@@ -50,23 +52,24 @@ export default function BlogPost() {
     });
   };
 
-  const formatContent = (content: string) => {
-    // Simple markdown-like formatting
-    return content
-      .split('\n')
-      .filter(line => line.trim() !== '') // Remove empty lines
-      .map((line, index) => {
-        if (line.startsWith('# ')) {
-          return <h1 key={index} className="text-3xl font-bold text-sage-800 mb-2 mt-4">{line.slice(2)}</h1>;
-        }
-        if (line.startsWith('## ')) {
-          return <h2 key={index} className="text-2xl font-semibold text-sage-700 mb-2 mt-4">{line.slice(3)}</h2>;
-        }
-        if (line.startsWith('- ')) {
-          return <li key={index} className="text-sage-600 ml-4 mb-1">{line.slice(2)}</li>;
-        }
-        return <p key={index} className="text-sage-600 mb-3 leading-relaxed">{line}</p>;
-      });
+  // Custom components for ReactMarkdown
+  const markdownComponents = {
+    h1: ({ children }: any) => <h1 className="text-3xl font-bold text-sage-800 mb-4 mt-6">{children}</h1>,
+    h2: ({ children }: any) => <h2 className="text-2xl font-semibold text-sage-700 mb-3 mt-5">{children}</h2>,
+    h3: ({ children }: any) => <h3 className="text-xl font-medium text-sage-700 mb-2 mt-4">{children}</h3>,
+    p: ({ children }: any) => <p className="text-sage-600 mb-4 leading-relaxed">{children}</p>,
+    ul: ({ children }: any) => <ul className="list-disc list-inside mb-4 space-y-1 text-sage-600">{children}</ul>,
+    ol: ({ children }: any) => <ol className="list-decimal list-inside mb-4 space-y-1 text-sage-600">{children}</ol>,
+    li: ({ children }: any) => <li className="text-sage-600">{children}</li>,
+    blockquote: ({ children }: any) => <blockquote className="border-l-4 border-sage-300 pl-4 py-2 mb-4 italic text-sage-700 bg-sage-50 rounded-r">{children}</blockquote>,
+    code: ({ inline, children }: any) => 
+      inline 
+        ? <code className="bg-sage-100 text-sage-800 px-1 py-0.5 rounded text-sm font-mono">{children}</code>
+        : <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg mb-4 overflow-x-auto"><code className="font-mono text-sm">{children}</code></pre>,
+    a: ({ href, children }: any) => <a href={href} className="text-sage-600 hover:text-sage-800 underline" target="_blank" rel="noopener noreferrer">{children}</a>,
+    img: ({ src, alt }: any) => <img src={src} alt={alt} className="max-w-full h-auto rounded-lg mb-4 shadow-md" />,
+    strong: ({ children }: any) => <strong className="font-semibold text-sage-800">{children}</strong>,
+    em: ({ children }: any) => <em className="italic text-sage-700">{children}</em>,
   };
 
   const handleShare = async () => {
@@ -195,8 +198,13 @@ export default function BlogPost() {
           </header>
 
           {/* Article Content */}
-          <div className="prose prose-sage max-w-none">
-            {formatContent(post.content)}
+          <div className="max-w-none">
+            <ReactMarkdown 
+              remarkPlugins={[remarkGfm]}
+              components={markdownComponents}
+            >
+              {post.content}
+            </ReactMarkdown>
           </div>
 
           {/* Article Footer */}
