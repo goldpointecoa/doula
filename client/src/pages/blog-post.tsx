@@ -136,7 +136,7 @@ export default function BlogPost() {
           <h1 className="text-2xl font-bold text-sage-800 mb-4">Post Not Found</h1>
           <p className="text-sage-600 mb-8">The blog post you're looking for doesn't exist.</p>
           <Link href="/blog">
-            <Button variant="outline" className="border-sage-300 text-sage-700 hover:bg-sage-50">
+            <Button variant="outline" className="hover:text-white">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Blog
             </Button>
@@ -151,7 +151,7 @@ export default function BlogPost() {
       <div className="container mx-auto px-6 py-12 max-w-4xl">
         {/* Navigation */}
         <Link href="/blog">
-          <Button variant="ghost" className="mb-8 text-sage-600 hover:text-sage-700">
+          <Button variant="ghost" className="mb-8 hover:text-white">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Blog
           </Button>
