@@ -9,6 +9,7 @@ export interface BlogPost {
   excerpt: string;
   tags: string[];
   author: string;
+  authorPhoto?: string;
   authorRole?: string;
   published: boolean;
   content: string;
@@ -38,7 +39,9 @@ export function getAllBlogPosts(): BlogPost[] {
           date: data.date || new Date().toISOString(),
           excerpt: data.excerpt || '',
           tags: data.tags || [],
-          author: data.author || 'Sarah',
+          author: data.author || 'Esther Kimball',
+          authorPhoto: data.authorPhoto || '/assets/essie.jpg',
+          authorRole: data.authorRole || 'Certified Birth Doula',
           published: data.published !== false,
           content,
           image: data.image || undefined
@@ -71,7 +74,9 @@ export function getBlogPost(slug: string): BlogPost | null {
       date: data.date || new Date().toISOString(),
       excerpt: data.excerpt || '',
       tags: data.tags || [],
-      author: data.author || 'Sarah',
+      author: data.author || 'Esther Kimball',
+      authorPhoto: data.authorPhoto || '/assets/essie.jpg',
+      authorRole: data.authorRole || 'Certified Birth Doula',
       published: data.published !== false,
       content,
       image: data.image || undefined

@@ -22,7 +22,8 @@ collections:
       - {label: "Featured Image", name: "image", widget: "image", required: false}
       - {label: "Excerpt", name: "excerpt", widget: "text", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
-      - {label: "Author", name: "author", widget: "string", default: "Sarah"}
+      - {label: "Author", name: "author", widget: "string", default: "Esther Kimball"}
+      - {label: "Author Photo", name: "authorPhoto", widget: "string", default: "/assets/essie.jpg", required: false}
       - {label: "Author Role", name: "authorRole", widget: "string", default: "Certified Birth Doula"}
       - {label: "Published", name: "published", widget: "boolean", default: true}
       - {label: "Body", name: "body", widget: "markdown"}

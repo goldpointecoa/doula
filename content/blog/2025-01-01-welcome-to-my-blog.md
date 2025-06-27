@@ -7,7 +7,9 @@ tags:
   - welcome
   - introduction
   - doula care
-author: Esther
+author: Esther Kimball
+authorPhoto: /assets/essie.jpg
+authorRole: Certified Birth Doula
 published: true
 ---
 
@@ -31,4 +33,4 @@ As a doula, my mission is to provide compassionate, non-judgmental support to fa
 Thank you for joining me on this journey. I look forward to sharing more with you soon!
 
 With love and light,
-Sarah
+Esther Kimball

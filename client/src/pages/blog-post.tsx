@@ -13,6 +13,7 @@ interface BlogPost {
   excerpt: string;
   tags: string[];
   author: string;
+  authorPhoto?: string;
   authorRole?: string;
   content: string;
   image?: string;
@@ -196,9 +197,19 @@ export default function BlogPost() {
           <footer className="mt-12 pt-8 border-t border-sage-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-sage-200 rounded-full flex items-center justify-center">
-                  <User className="w-6 h-6 text-sage-600" />
-                </div>
+                {post.authorPhoto ? (
+                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-sage-200 flex-shrink-0">
+                    <img 
+                      src={post.authorPhoto} 
+                      alt={post.author}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-12 h-12 bg-sage-200 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <User className="w-6 h-6 text-sage-600" />
+                  </div>
+                )}
                 <div>
                   <p className="font-semibold text-sage-800">{post.author}</p>
                   <p className="text-sm text-sage-600">{post.authorRole || 'Certified Birth Doula'}</p>
