@@ -49,10 +49,10 @@ export default function BlogPost() {
       .split('\n')
       .map((line, index) => {
         if (line.startsWith('# ')) {
-          return <h1 key={index} className="text-3xl font-bold text-sage-800 mb-4 mt-8">{line.slice(2)}</h1>;
+          return <h1 key={index} className="text-3xl font-bold text-sage-800 mb-2 mt-4">{line.slice(2)}</h1>;
         }
         if (line.startsWith('## ')) {
-          return <h2 key={index} className="text-2xl font-semibold text-sage-700 mb-3 mt-6">{line.slice(3)}</h2>;
+          return <h2 key={index} className="text-2xl font-semibold text-sage-700 mb-2 mt-4">{line.slice(3)}</h2>;
         }
         if (line.startsWith('- ')) {
           return <li key={index} className="text-sage-600 ml-4 mb-1">{line.slice(2)}</li>;
@@ -60,7 +60,7 @@ export default function BlogPost() {
         if (line.trim() === '') {
           return <br key={index} />;
         }
-        return <p key={index} className="text-sage-600 mb-4 leading-relaxed">{line}</p>;
+        return <p key={index} className="text-sage-600 mb-3 leading-relaxed">{line}</p>;
       });
   };
 
