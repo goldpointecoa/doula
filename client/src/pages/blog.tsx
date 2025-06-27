@@ -4,6 +4,7 @@ import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 interface BlogPost {
   slug: string;
@@ -19,6 +20,11 @@ interface BlogPost {
 }
 
 export default function Blog() {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {

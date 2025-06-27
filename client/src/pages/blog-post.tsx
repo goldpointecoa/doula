@@ -5,6 +5,7 @@ import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
+import { useEffect } from 'react';
 
 interface BlogPost {
   slug: string;
@@ -22,6 +23,11 @@ interface BlogPost {
 export default function BlogPost() {
   const [match, params] = useRoute('/blog/:slug');
   const { toast } = useToast();
+  
+  // Scroll to top when component mounts or slug changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [params?.slug]);
   
   const { data: post, isLoading, error } = useQuery({
     queryKey: ['blog-post', params?.slug],
