@@ -47,6 +47,7 @@ export default function BlogPost() {
     // Simple markdown-like formatting
     return content
       .split('\n')
+      .filter(line => line.trim() !== '') // Remove empty lines
       .map((line, index) => {
         if (line.startsWith('# ')) {
           return <h1 key={index} className="text-3xl font-bold text-sage-800 mb-2 mt-4">{line.slice(2)}</h1>;
@@ -56,9 +57,6 @@ export default function BlogPost() {
         }
         if (line.startsWith('- ')) {
           return <li key={index} className="text-sage-600 ml-4 mb-1">{line.slice(2)}</li>;
-        }
-        if (line.trim() === '') {
-          return <br key={index} />;
         }
         return <p key={index} className="text-sage-600 mb-3 leading-relaxed">{line}</p>;
       });
