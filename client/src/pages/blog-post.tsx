@@ -20,7 +20,7 @@ interface BlogPost {
 export default function BlogPost() {
   const [match, params] = useRoute('/blog/:slug');
   const { toast } = useToast();
-
+  
   const { data: post, isLoading, error } = useQuery({
     queryKey: ['blog-post', params?.slug],
     queryFn: async () => {
@@ -157,7 +157,7 @@ export default function BlogPost() {
             <h1 className="text-3xl md:text-4xl font-bold text-sage-800 mb-4 leading-tight">
               {post.title}
             </h1>
-
+            
             <div className="flex flex-wrap items-center gap-4 text-sm text-sage-500 mb-6">
               <div className="flex items-center gap-1">
                 <Calendar className="w-4 h-4" />
