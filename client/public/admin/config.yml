@@ -4,7 +4,7 @@ backend:
   branch: main
 
 # Site URL for Netlify deployment
-site_url: https://knitandknown-doula.netlify.app
+site_url: https://knit-and-known.netlify.app
 # local_backend: true
 
 media_folder: "client/public/images/blog"
