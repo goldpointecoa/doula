@@ -1,9 +1,10 @@
 import { useRoute } from 'wouter';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Share2 } from 'lucide-react';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
+import { useToast } from '@/hooks/use-toast';
 
 interface BlogPost {
   slug: string;
@@ -18,6 +19,7 @@ interface BlogPost {
 
 export default function BlogPost() {
   const [match, params] = useRoute('/blog/:slug');
+  const { toast } = useToast();
   
   const { data: post, isLoading, error } = useQuery({
     queryKey: ['blog-post', params?.slug],
@@ -59,6 +61,47 @@ export default function BlogPost() {
         }
         return <p key={index} className="text-sage-600 mb-4 leading-relaxed">{line}</p>;
       });
+  };
+
+  const handleShare = async () => {
+    const shareData = {
+      title: post?.title || 'Blog Post',
+      text: post?.excerpt || 'Check out this blog post!',
+      url: window.location.href,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        toast({
+          title: "Shared successfully!",
+          description: "Post has been shared via your device's share menu.",
+        });
+      } else {
+        // Fallback: copy to clipboard
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Link copied!",
+          description: "The blog post link has been copied to your clipboard.",
+        });
+      }
+    } catch (error) {
+      // Fallback: copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        toast({
+          title: "Link copied!",
+          description: "The blog post link has been copied to your clipboard.",
+        });
+      } catch (clipboardError) {
+        // Final fallback: show URL in toast
+        toast({
+          title: "Share this post",
+          description: window.location.href,
+          duration: 10000,
+        });
+      }
+    }
   };
 
   if (isLoading) {
@@ -124,10 +167,6 @@ export default function BlogPost() {
                 <User className="w-4 h-4" />
                 <span>{post.author}</span>
               </div>
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                <span>5 min read</span>
-              </div>
             </div>
 
             <div className="flex flex-wrap gap-2 mb-6">
@@ -166,7 +205,12 @@ export default function BlogPost() {
                   <p className="text-sm text-sage-600">Certified Birth Doula</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm" className="border-sage-300 text-sage-700 hover:bg-sage-50">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="border-sage-300 text-sage-700 hover:bg-sage-50"
+                onClick={handleShare}
+              >
                 <Share2 className="w-4 h-4 mr-2" />
                 Share
               </Button>
