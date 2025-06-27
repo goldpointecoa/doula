@@ -68,7 +68,7 @@ export default function BlogPreviewSection() {
                   {post.excerpt}
                 </p>
                 <Link href={`/blog/${post.slug}`}>
-                  <Button variant="ghost" className="w-full text-sage-700 hover:bg-sage-50 hover:text-sage-700 group-hover:translate-x-1 transition-transform">
+                  <Button className="w-full text-sage-700 text-white hover:text-white group-hover:translate-x-1 transition-transform">
                     Read More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -81,7 +81,7 @@ export default function BlogPreviewSection() {
 
         <div className="text-center">
           <Link href="/blog">
-            <Button size="lg" className="bg-sage-600 hover:bg-sage-700 text-white hover:text-white px-8 py-3">
+            <Button size="lg" className="text-white hover:text-white px-8 py-3 hover:translate-x-1 transition-transform">
               View All Posts
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>

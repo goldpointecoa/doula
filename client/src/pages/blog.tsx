@@ -62,7 +62,7 @@ export default function Blog() {
         {/* Header */}
         <div className="text-center mb-12">
           <Link href="/">
-            <Button variant="ghost" className="mb-6 text-sage-600 hover:text-sage-700">
+            <Button variant="ghost" className="mb-6">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Home
             </Button>
@@ -114,7 +114,7 @@ export default function Blog() {
                   ))}
                 </div>
                 <Link href={`/blog/${post.slug}`}>
-                  <Button variant="outline" className="w-full border-sage-300 text-sage-700 hover:bg-sage-50">
+                  <Button variant="outline" className="w-full">
                     Read More
                   </Button>
                 </Link>
