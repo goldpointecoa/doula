@@ -92,11 +92,14 @@ Blog posts are stored in `content/blog/` as markdown files with this structure:
 ---
 title: "Your Blog Post Title"
 date: 2025-01-01T10:00:00.000Z
+image: "/images/blog/your-featured-image.jpg"
 excerpt: "Brief description of the post"
 tags:
   - tag1
   - tag2
 author: "Author Name"
+authorPhoto: "/assets/author-photo.jpg"
+authorRole: "Certified Birth Doula"
 published: true
 ---
 
