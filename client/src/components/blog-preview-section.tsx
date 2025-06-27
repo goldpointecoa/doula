@@ -32,15 +32,11 @@ export default function BlogPreviewSection() {
       
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Heart className="w-6 h-6 text-sage-500" />
-            <span className="text-sage-600 font-medium">From the Heart</span>
-          </div>
           <h2 className="text-4xl md:text-5xl font-bold text-sage-800 mb-4">
-            Latest Blog Posts
+            Birth Stories & Insights
           </h2>
           <p className="text-lg text-sage-600 max-w-2xl mx-auto">
-            Sharing experiences and insights for your pregnancy and birth
+            Sharing wisdom, experiences, and support for your pregnancy and birth journey
           </p>
         </div>
 
