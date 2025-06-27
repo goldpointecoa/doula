@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, ArrowRight, Heart } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import { useQuery } from '@tanstack/react-query';
 import OrganicDivider from "./organic-divider";
@@ -72,7 +72,7 @@ export default function BlogPreviewSection() {
                   {post.excerpt}
                 </p>
                 <Link href={`/blog/${post.slug}`}>
-                  <Button variant="ghost" className="w-full text-sage-700 hover:bg-sage-50 group-hover:translate-x-1 transition-transform">
+                  <Button variant="ghost" className="w-full text-sage-700 hover:bg-sage-50 hover:text-sage-700 group-hover:translate-x-1 transition-transform">
                     Read More
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
@@ -80,33 +80,12 @@ export default function BlogPreviewSection() {
               </CardContent>
             </Card>
           ))}
-          
-          {/* Placeholder cards for future posts */}
-          {recentPosts.length < 3 && (
-            <>
-              <Card className="bg-white/30 backdrop-blur-sm border-sage-200 border-dashed">
-                <CardContent className="flex items-center justify-center h-48">
-                  <div className="text-center">
-                    <Heart className="w-8 h-8 text-sage-400 mx-auto mb-2" />
-                    <p className="text-sage-500 font-medium">More stories coming soon</p>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-white/30 backdrop-blur-sm border-sage-200 border-dashed">
-                <CardContent className="flex items-center justify-center h-48">
-                  <div className="text-center">
-                    <Heart className="w-8 h-8 text-sage-400 mx-auto mb-2" />
-                    <p className="text-sage-500 font-medium">More stories coming soon</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </>
-          )}
+
         </div>
 
         <div className="text-center">
           <Link href="/blog">
-            <Button size="lg" className="bg-sage-600 hover:bg-sage-700 text-white px-8 py-3">
+            <Button size="lg" className="bg-sage-600 hover:bg-sage-700 text-white hover:text-white px-8 py-3">
               View All Posts
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
