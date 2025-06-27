@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, User, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface BlogPost {
   slug: string;
@@ -20,12 +20,15 @@ interface BlogPost {
 }
 
 export default function Blog() {
-  // Scroll to top when component mounts
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 12;
+
+  // Scroll to top when component mounts or page changes
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [currentPage]);
 
-  const { data: posts = [], isLoading } = useQuery({
+  const { data: allPosts = [], isLoading } = useQuery({
     queryKey: ['blog-posts'],
     queryFn: async () => {
       const response = await fetch('/data/blog-posts.json');
@@ -36,12 +39,30 @@ export default function Blog() {
     }
   });
 
+  // Calculate pagination
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const currentPosts = allPosts.slice(startIndex, endIndex);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   if (isLoading) {
@@ -83,7 +104,7 @@ export default function Blog() {
 
         {/* Blog Posts Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post: BlogPost) => (
+          {currentPosts.map((post: BlogPost) => (
             <Card key={post.slug} className="bg-white/70 backdrop-blur-sm border-sage-200 hover:shadow-lg transition-shadow duration-300 overflow-hidden">
               {post.image && (
                 <div className="h-48 overflow-hidden">
@@ -129,8 +150,52 @@ export default function Blog() {
           ))}
         </div>
 
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-12">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={goToPrevPage}
+              disabled={currentPage === 1}
+              className="border-sage-300 text-sage-700 hover:bg-sage-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft className="w-4 h-4 mr-1" />
+              Previous
+            </Button>
+            
+            <div className="flex items-center gap-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <Button
+                  key={page}
+                  variant={page === currentPage ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setCurrentPage(page)}
+                  className={page === currentPage 
+                    ? "bg-sage-600 hover:bg-sage-700 text-white" 
+                    : "border-sage-300 text-sage-700 hover:bg-sage-50"
+                  }
+                >
+                  {page}
+                </Button>
+              ))}
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+              className="border-sage-300 text-sage-700 hover:bg-sage-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Next
+              <ChevronRight className="w-4 h-4 ml-1" />
+            </Button>
+          </div>
+        )}
+
         {/* Empty State */}
-        {posts.length === 0 && (
+        {allPosts.length === 0 && (
           <div className="text-center py-12">
             <h3 className="text-xl font-semibold text-sage-700 mb-2">No posts yet</h3>
             <p className="text-sage-600">
